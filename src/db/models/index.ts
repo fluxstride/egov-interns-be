@@ -20,6 +20,8 @@ const env = (process.env.NODE_ENV || "development") as Environment;
 
 const config: ConfigInterface = dbConfig[env];
 
+console.log({ config });
+
 let sequelize: Sequelize;
 
 if (config.use_env_variable) {
@@ -68,4 +70,4 @@ export const db: DB = Object.values(models)
     return prev;
   }, {} as DB);
 
-console.log(db);
+console.log({ db });

@@ -6,7 +6,7 @@ import pageNotFoundMiddleware from "./middlewares/404.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
 
 export class App {
-  private express: Application;
+  public express: Application;
   private controllers: Controller[];
   private port: number;
 
@@ -33,8 +33,12 @@ export class App {
       });
     });
 
+    this.express.get("/api", (_req: Request, res: Response) => {
+      res.redirect("/");
+    });
+
     this.controllers.forEach((controller) => {
-      this.express.use(controller.path, controller.router);
+      this.express.use("/api", controller.router);
     });
   }
 

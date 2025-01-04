@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { Model, Optional, DataTypes, Sequelize } from "sequelize";
 
 export interface UserAttributes {
@@ -14,6 +15,7 @@ export interface UserAttributes {
   githubLink?: string;
   profileImage?: string;
   bio?: string;
+  verifyPassword?(plainTextPassword: string): boolean;
 }
 
 export interface UserCreationAttributes
@@ -26,6 +28,7 @@ class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
+  boolean: any;
   public id!: string;
   public firstName!: string;
   public lastName!: string;
@@ -79,6 +82,10 @@ class User
         password: {
           type: new DataTypes.TEXT(),
           allowNull: false,
+          set(val: string) {
+            const hashedPassword = bcrypt.hashSync(val, 10);
+            this.setDataValue("password", hashedPassword);
+          },
         },
         dob: {
           type: DataTypes.DATE,
@@ -124,6 +131,10 @@ class User
       foreignKey: "userId",
       onDelete: "CASCADE",
     });
+  }
+
+  verifyPassword(plainTextPassword: string) {
+    return bcrypt.compareSync(plainTextPassword, this.password);
   }
 }
 

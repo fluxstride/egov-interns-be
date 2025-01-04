@@ -1,17 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import HttpException from "../utils/http.exception";
+import asyncWrap from "../utils/asyncWrapper";
 
 export interface AuthenticatedRequest extends Request {
   uid?: string;
 }
 
-export const authCheck = (
-  req: AuthenticatedRequest,
-  _res: Response,
-  next: NextFunction,
-) => {
-  try {
+export const authCheck = asyncWrap(
+  (req: AuthenticatedRequest, _res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split("Bearer ")[1];
     if (!token) {
       throw new HttpException(401, "Unauthorized ");
@@ -23,7 +20,5 @@ export const authCheck = (
     };
     req.uid = payload.uid;
     next();
-  } catch (_error) {
-    throw new HttpException(401, "Unauthorized ");
-  }
-};
+  },
+);

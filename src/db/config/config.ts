@@ -1,4 +1,5 @@
 import { Dialect } from "sequelize";
+import pg from "pg";
 import "dotenv/config";
 
 interface DbConfig {
@@ -8,6 +9,7 @@ interface DbConfig {
   host: string;
   port: number;
   dialect: Dialect;
+  dialectModule: any;
 }
 
 type Environment = "development" | "test" | "production";
@@ -24,6 +26,7 @@ var config: Config = {
     host: process.env.DEV_DB_HOST as string,
     port: Number(process.env.DEV_DB_PORT),
     dialect: process.env.DEV_DB_DIALECT as Dialect,
+    dialectModule: pg,
   },
   test: {
     username: process.env.TEST_DB_USERNAME as string,
@@ -32,7 +35,9 @@ var config: Config = {
     host: process.env.TEST_DB_HOST as string,
     port: Number(process.env.TEST_DB_PORT),
     dialect: process.env.TEST_DB_DIALECT as Dialect,
+    dialectModule: pg,
   },
+
   production: {
     username: process.env.DB_USERNAME as string,
     password: process.env.DB_PASSWORD as string,
@@ -40,6 +45,7 @@ var config: Config = {
     host: process.env.DB_HOST as string,
     port: Number(process.env.DB_PORT),
     dialect: process.env.DB_DIALECT as Dialect,
+    dialectModule: pg,
   },
 };
 

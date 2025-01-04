@@ -1,6 +1,13 @@
 {
-  "extends": "@tsconfig/node10/tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "target": "es2018",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
     "allowJs": true,
     "sourceMap": true,
     "outDir": "dist"

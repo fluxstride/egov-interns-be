@@ -78,6 +78,7 @@ class Project
   public static associate(sequelize: Sequelize) {
     this.belongsTo(sequelize.models.user, {
       foreignKey: "userId",
+      onDelete: "CASCADE",
     });
   }
 }

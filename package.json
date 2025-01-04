@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/",
+    "vercel-dev": "vercel dev --listen 5000",
     "start": "tsx src/",
     "migrate": "sequelize-cli db:migrate",
     "migrate:undo": "sequelize-cli db:migrate:undo",
@@ -20,6 +21,7 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/multer": "^1.4.11",
+    "@vercel/node": "^3.2.14",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -36,7 +38,6 @@
     "tsx": "^4.19.1"
   },
   "devDependencies": {
-    "@tsconfig/node10": "^1.0.11",
     "@tsconfig/node20": "^20.1.4",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
