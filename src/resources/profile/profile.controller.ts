@@ -107,7 +107,7 @@ export class ProfileController {
       }
 
       user.bio = updateData.bio;
-      user.username = updateData.username;
+      user.username = updateData.username.toLocaleLowerCase().trim();
       user.firstName = updateData.firstName;
       user.lastName = updateData.lastName;
       user.email = updateData.email;
@@ -122,7 +122,7 @@ export class ProfileController {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        username: user.username.toLocaleLowerCase().trim(),
+        username: user.username,
         dob: user.dob,
         schoolName: user.schoolName,
         schoolDepartment: user.schoolDepartment,
